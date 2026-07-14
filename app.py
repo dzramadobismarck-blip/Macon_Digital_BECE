@@ -1,63 +1,37 @@
 import streamlit as st
+import pandas as pd
 
-# --- PAGE CONFIGURATION ---
-st.set_page_config(page_title="Macon Digital: JHS GES Revision Agent", layout="wide")
+# Load the dataset
+@st.cache_data
+def load_data():
+    return pd.read_csv("bece_questions.csv")
 
-# --- CUSTOM CSS ---
-st.markdown("""
-    <style>
-    [data-testid="stSidebar"] { background-color: #002366; color: white; }
-    [data-testid="stSidebar"] * { color: white; }
-    .stButton>button { background-color: #DAA520; color: #002366; font-weight: bold; width: 100%; }
-    </style>
-""", unsafe_allow_html=True)
+df = load_data()
 
-# --- SIDEBAR (Updated with Group Branding) ---
-with st.sidebar:
-    st.markdown("<h1 style='text-align: center;'>Macon Digital</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center;'>JHS Computing - Teacher Portal</p>", unsafe_allow_html=True)
-    st.markdown("---")
-    st.write("🏠 Dashboard")
-    st.write("📊 Topic Analysis")
-    st.write("📈 Student Performance")
-    st.write("📚 GES Curriculum Sync")
-    st.markdown("---")
-    st.write(f"**Development Team:** AI Group 2")
-    st.write(f"**Lead:** Bismarck")
-    if st.button("Log Out"):
-        st.warning("Logged Out.")
+st.title("🇬🇭 Macon Digital BECE Revision")
 
-# --- MAIN CONTENT ---
-st.header("Topic Analysis & Strategy Generator")
-st.info("Welcome, Bismarck! Let's analyze topic priority for your JHS Class.")
+# Sidebar filters
+st.sidebar.header("Filter Questions")
+selected_year = st.sidebar.multiselect("Select Year", df['Year'].unique())
+selected_subject = st.sidebar.multiselect("Select Subject", df['Subject'].unique())
 
-col1, col2 = st.columns(2)
+# Filtering logic
+filtered_df = df.copy()
+if selected_year:
+    filtered_df = filtered_df[filtered_df['Year'].isin(selected_year)]
+if selected_subject:
+    filtered_df = filtered_df[filtered_df['Subject'].isin(selected_subject)]
 
-with col1:
-    st.subheader("1. Curriculum Strand")
-    strands = ["1. Introduction to Computing", "2. Productivity Software", "3. Communication Networks", "4. Computational Thinking"]
-    selected_strand = st.selectbox("Select Strand:", strands, label_visibility="collapsed")
-    st.subheader("2. Specific Topic")
-    topic_name = st.text_input("Enter Sub-Strand/Topic:", placeholder="e.g., Spreadsheet formulas", label_visibility="collapsed")
+# Display questions as interactive items
+st.subheader(f"Showing {len(filtered_df)} Questions")
 
-with col2:
-    st.subheader("3. Exam Priority Factors")
-    weight = st.slider("Exam Weight/Priority Score:", 0.0, 1.0, 0.9, step=0.05)
-    freq = st.number_input("Historical BECE Frequency:", 0, 10, 8)
-    difficulty = st.slider("Average Student Difficulty:", 0.0, 1.0, 0.75, step=0.05)
-
-if st.button("GENERATE REVISION STRATEGY", type="primary"):
-    st.markdown("---")
-    st.subheader("Analysis Result")
-    is_high_priority = (weight > 0.8) or (freq > 7)
-    
-    res_col1, res_col2 = st.columns([1, 2])
-    with res_col1:
-        st.error("HIGH PRIORITY") if is_high_priority else st.success("STANDARD")
-    with res_col2:
-        if is_high_priority:
-            st.write("**Strategy: Deep Learning Approach**")
-            st.write("Action: Focus on hands-on practical application. Allocate 3 periods.")
-        else:
-            st.write("**Strategy: Inquiry-Based Approach**")
-            st.write("Action: Focus on real-world examples and discussions. Allocate 1-2 periods.")
+for index, row in filtered_df.iterrows():
+    with st.expander(f"{row['Subject']} ({row['Year']}): {row['Question']}"):
+        st.write(f"A) {row['Option_A']}")
+        st.write(f"B) {row['Option_B']}")
+        st.write(f"C) {row['Option_C']}")
+        st.write(f"D) {row['Option_D']}")
+        
+        # Button to reveal the answer
+        if st.button(f"Show Answer", key=f"btn_{index}"):
+            st.success(f"Correct Answer: {row['Correct_Answer']}")
