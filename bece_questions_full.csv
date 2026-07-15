@@ -1,0 +1,16 @@
+Year,Subject,Topic,Type,Question,Option_A,Option_B,Option_C,Option_D,Correct_Answer,Theory_Answer
+2026,Computing,Database,Objective,Which of these is a database management system?,MS Access,Microsoft Word,Paint,Calculator,A,
+2026,Computing,Networking,Objective,Which device connects multiple networks?,Router,Switch,Hub,Mouse,A,
+2026,Computing,Database,Theory,Define a database and give one example.,,,,,,"A database is an organized collection of structured information or data, typically stored electronically. Example: MS Access."
+2025,Computing,Hardware,Objective,Which of these is an input device?,Keyboard,Monitor,Printer,Speaker,A,
+2025,Computing,Software,Objective,Which of the following is an Operating System?,Windows,Excel,Chrome,Photoshop,A,
+2025,Computing,Hardware,Theory,Explain the difference between input and output devices with examples.,,,,,,"Input devices send data to the computer (e.g., keyboard), while output devices receive data from the computer (e.g., monitor)."
+2024,Computing,Internet,Objective,What does URL stand for?,Uniform Resource Locator,Universal Resource Link,United Research List,User Resource Locator,A,
+2024,Computing,Security,Objective,Which of these is used to prevent unauthorized access?,Password,Monitor,Speaker,Printer,A,
+2024,Computing,Internet,Theory,List three uses of the internet in education.,,,,,,"1. Research, 2. Online collaboration, 3. Access to educational materials."
+2023,Computing,Input Devices,Objective,Which device is used to enter text?,Keyboard,Monitor,Printer,Speaker,A,
+2023,Computing,Memory,Objective,Which of these is primary storage?,RAM,Hard Disk,Flash Drive,CD-ROM,A,
+2023,Computing,Word Processing,Theory,What are the steps to save a document in MS Word?,,,,,,Click File > Save/Save As > choose location > enter file name > click Save.
+2022,Computing,Word Processing,Objective,Which command is used to save?,Ctrl + S,Ctrl + P,Ctrl + C,Ctrl + V,A,
+2022,Computing,Basic Concepts,Objective,The brain of the computer is the?,CPU,Monitor,Keyboard,Mouse,A,
+2022,Computing,Basic Concepts,Theory,State the full meaning of CPU and its main functions.,,,,,,CPU stands for Central Processing Unit. Its main function is to execute instructions and process data.
